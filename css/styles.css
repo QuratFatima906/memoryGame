@@ -72,14 +72,15 @@ h1{
   background: #85B1F8;
   cursor: default;
 }
-.deck .card .show{
-  font-size: 33px;
+.deck .card.show{
+  font-size: 45px;
 }
 
 .deck .card.match{
   cursor: default;
   background: #5F99F8;
-  font-size: 33px;
+  font-size: 45px;
+  color:#fff830;
 }
  /* 
  Styles for Score Panel
@@ -106,6 +107,9 @@ h1{
   list-style: none;
   display: inline-block;
  
+}
+.score-panel .stars.hide{
+  color:#f9fafb;
 }
 
 .score-panel .restart{
