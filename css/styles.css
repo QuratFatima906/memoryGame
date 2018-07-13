@@ -102,14 +102,12 @@ h1{
   padding: 0;
   display: inline-block;
   margin:0 5px 0 0;
+  color:#5F99F8;
 }
 .score-panel .stars li{
   list-style: none;
   display: inline-block;
  
-}
-.score-panel .stars.hide{
-  color:#f9fafb;
 }
 
 .score-panel .restart{
@@ -231,8 +229,9 @@ text-align: center;
  -webkit-flex: 0 0 auto;
 }
 
-
-
+.fa-heart{
+  color: #de6a27;
+}
 
 
 
