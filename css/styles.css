@@ -75,13 +75,55 @@ h1{
 .deck .card.show{
   font-size: 45px;
 }
+/* Keyframe animation for matched cards */
+@keyframes match {
+    from {
+        transform: scale(1, 1);
+        background: #c0c0c0;
+    }
+
+    to {
+        transform: scale(1.1, 1.1);
+        background: #2859A8;
+    }
+}
+
+/* Keyframe animation for unmatched cards */
+@keyframes unmatch {
+    from {
+        transform: translate(0, 0);
+        background: #c0c0c0;
+    }
+
+    20%, 60% {
+        transform: translate(-8px, 0);
+        background:#2859A8 ;
+    }
+
+    40%, 80% {
+        transform: translate(8px, 0);
+        background: #2859A8;
+    }
+
+    to {
+        background: #2859A8;
+    }
+}
 
 .deck .card.match{
   cursor: default;
   background: #5F99F8;
   font-size: 45px;
   color:#fff830;
+  animation-name: match;
+  animation-duration: 400ms; 
 }
+.deck .card.notMatch {
+    animation-duration: 600ms;
+    animation-name: unmatch;
+}
+
+
  /* 
  Styles for Score Panel
  */
@@ -108,6 +150,9 @@ h1{
   list-style: none;
   display: inline-block;
  
+}
+.score-panel .timer {
+    margin: 0 0 0 50px;
 }
 
 .score-panel .restart{

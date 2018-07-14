@@ -1,7 +1,12 @@
 
 let moves = 0;   //Handle Moves
 let openCards =[];   //list to hold opened cards
-
+let timePanel = document.querySelector(".timer");
+timePanel.innerHTML = `00m:00s`; // default value of the timer
+let timeCounter = 0; // Store the time counter in a variable
+let timerId; // timer identifier to cancel the execution
+let firstClick = true; // start timer after first  click
+let matchCards =[]; //array for adding matched cards. To show Game win message
 
 const cards =['fa-diamond', 'fa-diamond',
 'fa-paper-plane-o','fa-paper-plane-o',
@@ -15,7 +20,10 @@ const cards =['fa-diamond', 'fa-diamond',
 
 let starsPanel = document.querySelector('.stars');
 let starItem = `<li><i class="fa fa-star"></i></li>`;
-starsPanel.innerHTML = starItem + starItem + starItem;
+function generateStars(){
+  starsPanel.innerHTML = starItem + starItem + starItem;
+}
+generateStars();
 //Generate cards dynamically
 function generateCard(card){
   return `<li class="card" data-card= "${card}"><i class="fa ${card}"></i></li>`;
@@ -37,7 +45,7 @@ function shuffle(array) {
 function setGame(){
   const deck = document.querySelector('.deck');
   const cardHTML = shuffle(cards).map(function(card){
-  return generateCard(card);
+    return generateCard(card);
   });
   deck.innerHTML = cardHTML.join('');
 }
@@ -47,6 +55,10 @@ function checkCards(){
   // Flip/show two cards for one second
   allCards.forEach(function(card){
     card.addEventListener('click' , function(e){
+    if(firstClick){ //Start Timer
+      beginTimer();
+      firstClick = false;
+    }
     //same card is not clicked twice
     if(!card.classList.contains('open') && !card.classList.contains('show') && !card.classList.contains('match')){
       openCards.push(card);
@@ -61,7 +73,7 @@ function checkCards(){
         //if no match, hide
         setTimeout( function(){
           openCards.forEach(function(card){
-            card.classList.remove('open', 'show');
+            card.classList.remove('open', 'show','notMatch');
           });
         //remove cards from selected queue
         openCards=[];
@@ -95,34 +107,78 @@ function matchingCard(){
     openCards[1].classList.add('match');
     openCards[1].classList.add('open');
     openCards[1].classList.add('show');
+    matchCards.push(openCards[0]);
+    matchCards.push(openCards[1]);
     return true;
   }
   else{
-    return false;
-  }
+   openCards[0].classList.add('notMatch');
+   openCards[0].classList.add('open');
+   openCards[0].classList.add('show');
+   openCards[1].classList.add('notMatch');
+   openCards[1].classList.add('open');
+   openCards[1].classList.add('show');
+
+   return false;
+ }
 }
 
-//Refresh Game
-const restart = document.querySelector('.restart');
-restart.addEventListener('click', function restart(){
+// Start the timer
+function beginTimer() {
+    timerId = setInterval(countTime, 1000);
+}
+
+// Increment the time counter
+function countTime() {
+    // Increase the time counter by 1
+    timeCounter += 1;
+    // Divide the timer into mm:ss format
+    let min = Math.trunc(timeCounter/60);
+    let sec = (timeCounter-(min*60));
+    // If the minutes and seconds have 1 digit, add a 0 in front of it
+    min < 10 ? min = `0${min}m` : min = `${min}m`;
+    sec < 10 ? sec = `0${sec}s` : sec = `${sec}s`;
+    // Update the timer HTML on the page
+    timePanel.innerHTML = `${min}:${sec}`;
+}
+
+// Stop the timer when the game is over or the player resets the game
+function endTimer() {
+    clearInterval(timerId);
+}
+//Completely reset the game
+function restart(){
+  endTimer();
   setGame();
   checkCards();
   clearMoves();
-});
+  generateStars();
+}
+//Refresh Game
+const refresh = document.querySelector('.restart');
+refresh.addEventListener('click', restart );
 
 //Dispaly star rating
 function showRating() {
-    switch(moves) {
+  switch(moves) {
         // If number of moves >= 10, it changes to a 2 star rating
         case 10:
-            starsPanel.innerHTML = starItem + starItem ;
+        starsPanel.innerHTML = starItem + starItem ;
         break;
         // If number of moves >= 20, it changes to a 1 star rating
         case 20:
-            starsPanel.innerHTML = starItem;
+        starsPanel.innerHTML = starItem;
+      }
     }
-}
+function youWin(){
+  if(matchCards.length === 16){
+    endTimer();
 
-setGame();  
+    // setTimeout(function(){
+    //   showPopup();
+    // }, 100);
+  }
+}
+    setGame();  
 checkCards();//function call 
 
