@@ -126,7 +126,7 @@ function matchingCard(){
 
 // Start the timer
 function beginTimer() {
-    timerId = setInterval(countTime, 1000);
+  timerId = setInterval(countTime, 1000);
 }
 
 // Increment the time counter
@@ -141,16 +141,16 @@ function countTime() {
     sec < 10 ? sec = `0${sec}s` : sec = `${sec}s`;
     // Update the timer HTML on the page
     timePanel.innerHTML = `${min}:${sec}`;
-}
+  }
 
 // Stop the timer when the game is over or the player resets the game
 function endTimer() {
-    clearTimeout(timerId);
-    timeCounter=0;
-    firstClick=true;
+  clearTimeout(timerId);
+  timeCounter=0;
+  firstClick=true;
     // timePanel.innerHTML = `00m:00s`;
 
-}
+  }
 //Completely reset the game
 function restart(){
   endTimer();
@@ -189,17 +189,17 @@ function youWin(){
 
 //Congratulation popup
 function showPopup() {
-    popUp.classList.add("visible");
-    popUp.innerHTML = `<div class="modal"><h3>Congratulations! You won!</h3>
-    <p>With ${moves} Moves in ${timePanel.innerHTML} and ${starsPanel.innerHTML} Stars.<br></p>
-    <button class="button" onclick='playAgain();'>Play again!</button></div>`;
+  popUp.classList.add("visible");
+  popUp.innerHTML = `<div class="modal"><h3>Congratulations! You won!</h3>
+  <p>With ${moves} Moves in ${timePanel.innerHTML} and ${starsPanel.innerHTML} Stars.<br></p>
+  <button class="button" onclick='playAgain();'>Play again!</button></div>`;
 }
 //Called at "play again" button
 function playAgain() {
-    popUp.classList.remove("visible");
-   restart();
+  popUp.classList.remove("visible");
+  restart();
 }
-   
-    setGame();  
+
+setGame();  
 checkCards();//function call 
 
