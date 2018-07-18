@@ -7,7 +7,7 @@ let timeCounter = 0; // Store the time counter in a variable
 let timerId; // timer identifier to cancel the execution
 let firstClick = true; // start timer after first  click
 let matchCards =[]; //array for adding matched cards. To show Game win message
-
+let popUp = document.querySelector(".popup"); 
 const cards =['fa-diamond', 'fa-diamond',
 'fa-paper-plane-o','fa-paper-plane-o',
 'fa-anchor','fa-anchor',
@@ -109,6 +109,7 @@ function matchingCard(){
     openCards[1].classList.add('show');
     matchCards.push(openCards[0]);
     matchCards.push(openCards[1]);
+    youWin();
     return true;
   }
   else{
@@ -144,7 +145,11 @@ function countTime() {
 
 // Stop the timer when the game is over or the player resets the game
 function endTimer() {
-    clearInterval(timerId);
+    clearTimeout(timerId);
+    timeCounter=0;
+    firstClick=true;
+    // timePanel.innerHTML = `00m:00s`;
+
 }
 //Completely reset the game
 function restart(){
@@ -170,15 +175,31 @@ function showRating() {
         starsPanel.innerHTML = starItem;
       }
     }
+
+//Check if user wins
 function youWin(){
   if(matchCards.length === 16){
     endTimer();
-
-    // setTimeout(function(){
-    //   showPopup();
-    // }, 100);
+    setTimeout(function(){
+      showPopup();
+    }, 100);
   }
+
 }
+
+//Congratulation popup
+function showPopup() {
+    popUp.classList.add("visible");
+    popUp.innerHTML = `<div class="modal"><h3>Congratulations! You won!</h3>
+    <p>With ${moves} Moves in ${timePanel.innerHTML} and ${starsPanel.innerHTML} Stars.<br></p>
+    <button class="button" onclick='playAgain();'>Play again!</button></div>`;
+}
+//Called at "play again" button
+function playAgain() {
+    popUp.classList.remove("visible");
+   restart();
+}
+   
     setGame();  
 checkCards();//function call 
 

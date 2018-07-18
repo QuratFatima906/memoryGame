@@ -1,0 +1,60 @@
+/* Responsive */
+
+@media screen and (min-width: 781px) and (max-width: 1440px) {
+    h1 {
+        -webkit-margin-before: 0.30em;
+        -webkit-margin-after: 0.30em;
+    }
+
+    .deck {
+        margin: 0 0 1em;
+    }    
+}
+
+@media screen and (max-width: 1200px) {
+    body {
+        background-position: center;
+    }
+}
+
+@media screen and (min-width: 540px) and (max-width: 600px) {
+    .deck .card {
+        height: 110px;
+        width: 110px;
+    }  
+}
+
+@media screen and (min-width: 466px) and (max-width: 540px) {
+    .deck .card {
+        height: 95px;
+        width: 95px;
+    }  
+}
+
+@media screen and (min-width: 401px) and (max-width: 465px) {
+    .deck .card {
+        height: 80px;
+        width: 80px;
+    }
+}
+
+@media screen and (min-width: 351px) and (max-width: 400px) {
+    .deck .card {
+        height: 70px;
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .deck .card {
+        height: 60px;
+        width: 60px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .score-panel {
+        max-width: 345px;
+        padding:  0 15px 0 15px;
+    }
+}
